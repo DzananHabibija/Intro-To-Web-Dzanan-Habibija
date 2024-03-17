@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<title>Shopping Cart</title>
+    <link rel="stylesheet" href="shoppingCart.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container px-4 px-lg-5">
+          <a class="navbar-brand" href="index.html">TechDeal</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                  <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Products</a></li>
+                  <li class="nav-item"><a class="nav-link" href="aboutUs.html">About</a></li>
+                  <li class="nav-item"><a class="nav-link" href="contactUs.html">Contact Us</a></li>
+              </ul>
+              <form class="d-flex">
+                  <div class="Login-button">
+                    <a href="users-profile.html" style="margin-right: 15px; color: black"><img src="user.png" width="25" alt=""></a>
+                  </div>
+
+
+                  <a href="shoppingCart.html">
+                      <div class="Shopping-cart">
+                          <img src="grocery-store.png" alt="Shopping Cart" style="width:25px;">
+                      </div>
+
+                  </a>
+                     
+                  
+              </form>
+          </div>
+      </div>
+  </nav>
+  
+<div class="container px-3 my-5 clearfix">
+  <!-- Shopping cart table -->
+  <div class="card">
+      <div class="card-header">
+          <h2>Shopping Cart</h2>
+      </div>
+      <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered m-0">
+              <thead>
+                <tr>
+                  <!-- Set columns width -->
+                  <th class="text-center py-3 px-4" style="min-width: 400px;">Product Name &amp; Details</th>
+                  <th class="text-right py-3 px-4" style="width: 100px;">Price</th>
+                  <th class="text-center py-3 px-4" style="width: 120px;">Quantity</th>
+                  <th class="text-right py-3 px-4" style="width: 100px;">Total</th>
+                  <th class="text-center align-middle py-3 px-0" style="width: 40px;"><a href="#" class="shop-tooltip float-none text-light" title="" data-original-title="Clear cart"><i class="ino ion-md-trash"></i></a></th>
+                </tr>
+              </thead>
+              <tbody>
+      
+                <tr>
+                  <td class="p-4">
+                    <div class="media align-items-center">
+                      <img src="samsung.png" style="width: 120%;" class="d-block ui-w-40 ui-bordered mr-4" alt="">
+                      <div class="media-body">
+                        <a href="product.html" class="d-block text-dark">Samsung Galaxy A53</a>
+                        <small>
+                          <span class="text-muted">Color:</span>
+                          <span class="ui-product-color ui-product-color-sm align-text-bottom" style="background:#6cbedc;"></span> &nbsp;
+                          <span class="text-muted">Storage: </span> 256GB &nbsp;
+                          <span class="text-muted">Country of origin: </span> USA
+                        </small>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-right font-weight-semibold align-middle p-4">$359.00</td>
+                  <td class="align-middle p-4"><input type="text" class="form-control text-center" value="2"></td>
+                  <td class="text-right font-weight-semibold align-middle p-4">$718.00</td>
+                  <td class="text-center align-middle px-0"><a href="#" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove"><img src="close.png" width="25%" alt="Close"></a></td>
+                </tr>
+      
+                <tr>
+                  <td class="p-4">
+                    <div class="media align-items-center">
+                      <img src="smartwatch-Photoroom.png-Photoroom.png" class="d-block ui-w-40 ui-bordered mr-4" alt="">
+                      <div class="media-body">
+                        <a href="product.html" class="d-block text-dark">Xiaomi SmartWatch</a>
+                        <small>
+                          <span class="text-muted">Color:</span>
+                          <span class="ui-product-color ui-product-color-sm align-text-bottom" style="background:#000;"></span> &nbsp;
+                          <span class="text-muted">Storage: </span> 16GB &nbsp;
+                          <span class="text-muted">Country of origin: </span> China
+                        </small>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-right font-weight-semibold align-middle p-4">$200.00</td>
+                  <td class="align-middle p-4"><input type="text" class="form-control text-center" value="1"></td>
+                  <td class="text-right font-weight-semibold align-middle p-4">$200.00</td>
+                  <td class="text-center align-middle px-0"><a href="#" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove"><img src="close.png" width="25%" alt="Close"></a></td>
+                </tr>
+      
+                <tr>
+                  <td class="p-4">
+                    <div class="media align-items-center">
+                      <img src="headphones.png" class="d-block ui-w-40 ui-bordered mr-4" alt="">
+                      <div class="media-body">
+                        <a href="product.html" class="d-block text-dark">Headphones</a>
+                        <small>
+                          <span class="text-muted">Color:</span>
+                          <span class="ui-product-color ui-product-color-sm align-text-bottom" style="background:#000;"></span> &nbsp;
+                          <span class="text-muted">Country of origin: </span> Germany
+                        </small>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-right font-weight-semibold align-middle p-4">$39.95</td>
+                  <td class="align-middle p-4"><input type="text" class="form-control text-center" value="1"></td>
+                  <td class="text-right font-weight-semibold align-middle p-4">$39.95</td>
+                  <td class="text-center align-middle px-0"><a href="#" class="shop-tooltip close float-none text-danger" title="" data-original-title="Remove"><img src="close.png" width="25%" alt="Close"></a></td>
+                </tr>
+      
+              </tbody>
+            </table>
+          </div>
+          <!-- / Shopping cart table -->
+      
+          <div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
+            <div class="mt-4">
+              <label class="text-muted font-weight-normal">Promocode</label>
+              <input type="text" placeholder="Enter promo code" class="form-control">
+            </div>
+            <div class="d-flex">
+              
+              <div class="text-right mt-4">
+                <label class="text-muted font-weight-normal m-0">Total price</label>
+                <div class="text-large"><strong>$957.95</strong></div>
+              </div>
+            </div>
+          </div>
+      
+          <div class="float-right">
+            <button type="button" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3"><a href="index.html" style="color: #000; text-decoration: none;">Back to shopping</a></button>
+            <button type="button" class="btn btn-lg btn-primary mt-2">Checkout</button>
+          </div>
+      
+        </div>
+    </div>
+</div>
+  </body>
+</html>
