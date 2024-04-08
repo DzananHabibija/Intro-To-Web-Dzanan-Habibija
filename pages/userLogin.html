@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
 <title>Login Page</title>
 
   <!-- Bootstrap CSS -->
@@ -24,18 +25,17 @@
             </div>
             <div class="card-body p-4 p-sm-5">
               <h5 class="card-title text-center mb-5 fw-light fs-5">Login</h5>
-              <form>
+              <form id="project-form">
   
-                <div class="form-floating mb-3">
-                  <input type="email" class="form-control" id="floatingInputEmail" placeholder="name@example.com">
+                <div class="mb-3">
                   <label for="floatingInputEmail">Email address</label>
+                  <input type="email" name="email" class="form-control" id="floatingInputEmail" placeholder="name@example.com">
+                  
                 </div>
   
-                <hr>
-  
-                <div class="form-floating mb-3">
-                  <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <div class="mb-3">
                   <label for="floatingPassword">Password</label>
+                  <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
                 </div>
   
   
@@ -43,7 +43,7 @@
                   <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit">Login</button>
                 </div>
   
-                <a class="d-block text-center mt-2 small" href="registration.html">Doesn't have an account? Sign up</a>
+                <a class="d-block text-center mt-2 small" href="#registration">Doesn't have an account? Sign up</a>
   
                 <hr class="my-4">
   
@@ -73,5 +73,44 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $("#project-form").validate({
+      rules: {
+        password: {
+          required: true,
+          minlength: 8,
+          maxlength: 16,
+        },
+      },
+      messages: {
+          password: {
+          minlength: "Your password is too short"
+      },
+    },
+      errorPlacement: function(error, element ) {
+          // Insert the error message below the input element
+          error.insertAfter(element);
+      },
+      submitHandler: function(form,event) {
+          // If the form is valid, submit it
+          event.preventDefault();
+          let data = serializeForm(form);
+          console.log("THE JSON DATA IS: " + JSON.stringify(data));
+          // form.reset();
+          form.submit();
+      }
+  });
+});
+
+serializeForm = (form,event) => {
+let jsonResult = {};
+$.each($(form).serializeArray(), function() {
+  jsonResult[this.name] = this.value;
+})
+return jsonResult;
+}
+</script>
+
 </body>
 </html>

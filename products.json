@@ -1,0 +1,60 @@
+{
+    "products": [
+        {
+            "id" : 1,
+            "productName" : "Samsung Galaxy A53",
+            "productPrice": "$359.00",
+            "countryOfOrigin" : "South Korea",
+            "yearOfProduction" : 2022
+        },
+        {
+            "id" : 2,
+            "productName" : "ASUS - ROG Gaming Desktop",
+            "productPrice": "$750.00",
+            "countryOfOrigin" : "USA",
+            "yearOfProduction" : 2021
+        },
+        {
+            "id" : 3,
+            "productName" : "Xiaomi Redmi Watch 4",
+            "productPrice": "$200.00",
+            "countryOfOrigin" : "China",
+            "yearOfProduction" : 2020
+        },
+        {
+            "id" : 4,
+            "productName" : "Lenovo ThinkPad T560",
+            "productPrice": "$400.00",
+            "countryOfOrigin" : "China",
+            "yearOfProduction" : 2022
+        },
+        {
+            "id" : 5,
+            "productName" : "Apple MacBook Air 13",
+            "productPrice": "$999.00",
+            "countryOfOrigin" : "USA",
+            "yearOfProduction" : 2019
+        },
+        {
+            "id" : 6,
+            "productName" : "Lenovo M10 Pro",
+            "productPrice": "$800.00",
+            "countryOfOrigin" : "China",
+            "yearOfProduction" : 2023
+        },
+        {
+            "id" : 7,
+            "productName" : "Apple iPhone 15",
+            "productPrice": "$750.00",
+            "countryOfOrigin" : "USA",
+            "yearOfProduction" : 2024
+        },
+        {
+            "id" : 8,
+            "productName" : "Acer V227Q LED Monitor",
+            "productPrice": "$300.00",
+            "countryOfOrigin" : "South Korea",
+            "yearOfProduction" : 2023
+        }
+    ]
+}

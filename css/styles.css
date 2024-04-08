@@ -10826,8 +10826,8 @@ textarea.form-control-lg {
 }
 
 body {
-  background: #007bff;
-  background: linear-gradient(to right, #0062E6, #33AEFF);
+  background: #ffffff;
+  background: linear-gradient(to right, #ffffff, #ffffff);
 }
 
 .card-img-left {
@@ -10844,12 +10844,12 @@ body {
 }
 
 .btn-google {
-  color: white !important;
+  color: white ;
   background-color: #ea4335;
 }
 
 .btn-facebook {
-  color: white !important;
+  color: white ;
   background-color: #3b5998;
 }
 
@@ -10875,4 +10875,12 @@ body {
   .about-us-text {
     margin-bottom: 2rem;
   }
+}
+
+.hidden{
+  display: none;
+}
+
+.visible{
+  display: block;
 }

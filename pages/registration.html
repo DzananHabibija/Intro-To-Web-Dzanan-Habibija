@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+<title>Registration Page</title>
+
+  <!-- Bootstrap CSS -->
+
+  <link href="css/styles.css" rel="stylesheet" />
+</head>
+<body>
+
+<!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
+
+<body>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-xl-9 mx-auto">
+          <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
+            <div class="card-img-left d-none d-md-flex">
+              <!-- Background image for card set in CSS! -->
+            </div>
+            <div class="card-body p-4 p-sm-5">
+              <h5 class="card-title text-center mb-5 fw-light fs-5">Register</h5>
+              <form id="project-form">
+  
+                <div class="mb-3">
+                  <label for="floatingInputUsername">Username</label>
+                  <input type="text" name="username" class="form-control" id="floatingInputUsername" placeholder="myusername" required autofocus/>
+                
+                </div>
+  
+                <div class="mb-3">
+                  <label for="floatingInputEmail">Email address</label>
+                  <input type="email" name="email" class="form-control" id="floatingInputEmail" placeholder="name@example.com">
+                </div>
+    
+                <div class="mb-3">
+                  <label for="floatingPassword">Password</label>
+                  <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+                </div>
+  
+                <div class="mb-3">
+                  <label for="floatingPasswordConfirm">Confirm Password</label>
+
+                  <input type="password" name="repeatPassword" class="form-control" id="floatingPasswordConfirm" placeholder="Confirm Password">
+                </div>
+  
+                <div class="d-grid mb-2">
+                  <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit">Register</button>
+                </div>
+  
+                <a class="d-block text-center mt-2 small" href="#userLogin">Have an account? Sign In</a>
+  
+                <hr class="my-4">
+  
+                <div class="d-grid mb-2">
+                  <button class="btn btn-lg btn-google btn-login fw-bold text-uppercase" type="submit">
+                    <i class="fab fa-google me-2"></i> Sign up with Google
+                  </button>
+                </div>
+  
+                <div class="d-grid">
+                  <button class="btn btn-lg btn-facebook btn-login fw-bold text-uppercase" type="submit">
+                    <i class="fab fa-facebook-f me-2"></i> Sign up with Facebook
+                  </button>
+                </div>
+                
+  
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+
+  <!-- Bootstrap JS and Popper.js (optional, for some Bootstrap components) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js"></script> 
+
+
+  <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> -->
+  <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
+ <!-- <script src="../spapp/js/jquery.spapp.min.js"></script> -->
+  <!--<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> -->
+  <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js"></script> -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> 
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script src="../spapp/js/jquery.spapp.min.js"></script>
+
+  
+
+  
+
+  <script>
+    
+  // Initialize jQuery Validation Plugin for form validation
+    $(document).ready(function() {
+      $("#project-form").validate({
+        rules: {
+          username: {
+            required: true,
+            minlength: 8,
+          },
+          password: {
+            required: true,
+            minlength: 8,
+            maxlength: 16,
+          },
+          repeatPassword: {
+            equalTo: "#floatingPassword",
+          },
+        },
+        messages: {
+            username: {
+                required: "Please enter a username",
+                minlength: "Username must be at least 8 characters long"
+            },
+            repeatPassword: {
+              equalTo: "Password and confirm password are not the same!"
+            },
+        },
+        errorPlacement: function(error, element ) {
+            // Insert the error message below the input element
+            error.insertAfter(element);
+        },
+        submitHandler: function(form,event) {
+            // If the form is valid, submit it
+            event.preventDefault();
+            let data = serializeForm(form);
+            console.log("THE JSON DATA IS: " + JSON.stringify(data));
+            // form.reset();
+            form.submit();
+        }
+    });
+});
+
+serializeForm = (form,event) => {
+  let jsonResult = {};
+  $.each($(form).serializeArray(), function() {
+    jsonResult[this.name] = this.value;
+  })
+  return jsonResult;
+}
+</script>
+  
+</body>
+</html>
