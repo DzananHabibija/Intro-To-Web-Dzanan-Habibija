@@ -8,7 +8,7 @@
 
   <!-- Bootstrap CSS -->
 
-  <link href="css/styles.css" rel="stylesheet" />
+  <link href="assets/css/styles.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -102,57 +102,60 @@
 
   
 
-  <script>
-    
+<script>
   // Initialize jQuery Validation Plugin for form validation
-    $(document).ready(function() {
-      $("#project-form").validate({
-        rules: {
+  $(document).ready(function() {
+    $("#project-form").validate({
+      rules: {
+        username: {
+          required: true,
+          minlength: 8,
+        },
+        password: {
+          required: true,
+          minlength: 8,
+          maxlength: 16,
+        },
+        repeatPassword: {
+          equalTo: "#floatingPassword",
+        },
+      },
+      messages: {
           username: {
-            required: true,
-            minlength: 8,
+              required: "Please enter a username",
+              minlength: "Username must be at least 8 characters long"
           },
           password: {
-            required: true,
-            minlength: 8,
-            maxlength: 16,
+              required: "Please enter a password",
+              minlength: "Password must be at least 8 characters long",
+              maxlength: "Password must be at most 16 characters long"
           },
           repeatPassword: {
-            equalTo: "#floatingPassword",
+            equalTo: "Password and confirm password are not the same!"
           },
-        },
-        messages: {
-            username: {
-                required: "Please enter a username",
-                minlength: "Username must be at least 8 characters long"
-            },
-            repeatPassword: {
-              equalTo: "Password and confirm password are not the same!"
-            },
-        },
-        errorPlacement: function(error, element ) {
-            // Insert the error message below the input element
-            error.insertAfter(element);
-        },
-        submitHandler: function(form,event) {
-            // If the form is valid, submit it
-            event.preventDefault();
-            let data = serializeForm(form);
-            console.log("THE JSON DATA IS: " + JSON.stringify(data));
-            // form.reset();
-            form.submit();
-        }
+      },
+      errorPlacement: function(error, element ) {
+          // Insert the error message below the input element
+          error.insertAfter(element);
+      },
+      submitHandler: function(form) {
+          // If the form is valid, serialize form data and send POST request
+          let formData = $(form).serialize();
+          console.log("THE FORM DATA IS: " + formData);
+          $.post("http://localhost/Web-Project/backend/add_user.php", formData)
+              .done(function(data){
+                  // Callback function to handle successful response
+                  console.log("Response:", data);
+              })
+              .fail(function(xhr, error) {
+                  // Callback function to handle failed response
+                  console.error("Failed to send POST request.", error);
+              });
+      }
     });
-});
-
-serializeForm = (form,event) => {
-  let jsonResult = {};
-  $.each($(form).serializeArray(), function() {
-    jsonResult[this.name] = this.value;
-  })
-  return jsonResult;
-}
-</script>
+  });
+  </script>
+  
   
 </body>
 </html>
