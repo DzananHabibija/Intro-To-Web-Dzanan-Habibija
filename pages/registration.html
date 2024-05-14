@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+
 <title>Registration Page</title>
 
   <!-- Bootstrap CSS -->
@@ -74,6 +75,64 @@
           </div>
         </div>
       </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="username" class="col-form-label">Username:</label>
+            <input type="text" name="username" class="form-control" id="username">
+          </div>
+          <div class="mb-3">
+            <label for="email" class="col-form-label">Email:</label>
+            <input type="email" name="email" class="form-control" id="email">
+          </div>
+          <div class="mb-3">
+            <label for="password" class="col-form-label">Password:</label>
+            <input type="password" name="password" class="form-control" id="password">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button id="submitBtn" type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      <!-- Your HTML code with Bootstrap modal -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Form fields for editing user data -->
+        <!-- You can add your form fields here -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <div class="mt-5">
+        <table id="tutorials-table" class="table table-stripped"></table>
+
+      </div>
     </div>
   
   
@@ -82,6 +141,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js"></script> 
 
+  <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
 
   <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> -->
@@ -96,13 +156,145 @@
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-<script src="../spapp/js/jquery.spapp.min.js"></script>
+<!-- <script src="../spapp/js/jquery.spapp.min.js"></script> -->
 
   
+<script src="/Web-Project/utils/rest_client.js"></script>
+<script src="/Web-Project/utils/constants.js"></script>
+
 
   
 
 <script>
+  // JavaScript function to open edit modal
+  function openEditModal(userId) {
+    // Populate the modal with user data
+    // For now, let's just show the modal
+    $('#exampleModal').modal('show');
+    $("#project-form input[name='id']").val(data.id);
+    $("#project-form input[name='username']").val(data.username);
+    $("#project-form input[name='password']").val(data.password);
+  }
+
+  function openEditNewModal(user_id) {
+        // Populate the modal with user data
+        // For now, let's just show the modal
+        RestClient.get("users/" + user_id, function (data) { // previous: RestClient.get("/get_user.php?id=" + user_id, function (data) { 
+          console.log("The data inside modal came and it is: ", data);
+        $('#exampleModal').modal('show');
+        $("#exampleModal input[name='id']").val(data.id);
+        $("#exampleModal input[name='username']").val(data.username);
+        $("#exampleModal input[name='email']").val(data.email);
+        $("#exampleModal input[name='password']").val(data.password);// #project-form
+
+        $('#submitBtn').off('click').on('click', function() {
+            // Update user data
+            var updatedData = {
+                id: $("#exampleModal input[name='id']").val(),
+                username: $("#exampleModal input[name='username']").val(),
+                email: $("#exampleModal input[name='email']").val(),
+                password: $("#exampleModal input[name='password']").val()
+            };
+
+            // Make AJAX request to update user data
+            RestClient.put("/update_user.php", updatedData, function(response) {
+                console.log("User data updated successfully");
+                // Optionally, you can reload the DataTable or perform any other actions here
+            }, function(error) {
+                console.error("Error updating user data:", error);
+                alert("An error occurred while updating user data. Please try again later.");
+            });
+
+            // Hide the modal after saving changes
+            $('#exampleModal').modal('hide');
+        });
+
+      });
+      }
+
+  // JavaScript function to open delete modal
+  function deleteUser(userId) {
+    // Populate the modal with user data
+    // For now, let's just show the modal
+   // $('#editUserModal').modal('show');
+    if(confirm("Do you really want to delete this user?")) {
+        RestClient.delete(
+          "/delete_user.php?id=" + userId,
+          {},
+          function(data) {
+            console.log("User with id ",userId," is deleted successfully");
+            // var updatedUsers = users.filter(function(user) {
+            //         return user.id !== userId;
+            //     });
+                // Update local storage with the updated user data
+                // var index = users.findIndex(function(user) {
+                //     return user.id === userId;
+                // });
+                // // Remove the user from the array
+                // if (index !== -1) {
+                //     users.splice(index, 1);
+                // }
+                // localStorage.setItem('userData', JSON.stringify(updatedUsers));
+                // // Reload DataTable with the updated user data
+                // initializeDatatable("#tutorials-table", users);
+          },
+        function(error) {
+            // Handle error response
+            console.error("Error deleting user:", error);
+            // Optionally, display the error message to the user
+            alert("An error occurred while deleting the user. Please try again later.");
+        }
+      );
+  }
+}
+function reloadDataTable(data) {
+    // Destroy existing DataTable instance
+    $('#tutorials-table').DataTable().clear().destroy();
+    // Initialize DataTable with new data
+    initializeDatatable("#tutorials-table", data);
+}
+
+  var users = [];
+  var idCounter = 1;
+  
+
+  function initializeDatatable(tableId, data) {
+    console.log("Initializing DataTable with Data:", data);
+    // Destroy the existing DataTable instance
+    if ($.fn.DataTable.isDataTable(tableId)) {
+      $(tableId).DataTable().destroy();
+    }
+    // Initialize new DataTable with data
+    $(tableId).DataTable({
+      columns: [
+        { title: "ID", data: "id" },
+        { title: "Username", data: "username" },
+        { title: "Email", data: "email" },
+        { title: "Password", data: "password" },
+        { 
+                title: "Action", 
+                data: null,
+                render: function(data, type, row) {
+                    return '<div class="btn-group" role="group" aria-label="Actions">' +
+                        '<button type="button" class="btn btn-warning" onclick="openEditModal(' + row.id + ')">Edit</button>' +
+                        '<button type="button" class="btn btn-danger" onclick="deleteUser(' + row.id + ')">Delete</button>' +
+                        '</div>';
+                }
+            }
+        // { 
+        //   title: "Action", 
+        //   data: null,
+        //   render: function(data, type, row) {
+        //     console.log("The data in render is: " + data); // Log the data object to inspect its properties
+        //     console.log("Action property:", data.action); // Log the action property
+        //     return data.action; // Render the action column as provided in the data
+        //   }
+        // }
+      ],
+      data: data
+    });
+  }
+
   // Initialize jQuery Validation Plugin for form validation
   $(document).ready(function() {
     $("#project-form").validate({
@@ -142,10 +334,17 @@
           // If the form is valid, serialize form data and send POST request
           let formData = $(form).serialize();
           console.log("THE FORM DATA IS: " + formData);
-          $.post("http://localhost/Web-Project/backend/add_user.php", formData)
+          $.post("http://localhost/Web-Project/backend/users/add", formData) //add_user.php
               .done(function(data){
                   // Callback function to handle successful response
                   console.log("Response:", data);
+                  var userData = JSON.parse(data);
+                  console.log("Parsed User Data:", userData);
+                  users.push(userData);
+                  console.log("Updated Users Array:", users);
+                  
+                  console.log("Data before the datatable initialization is: ", users);
+                  
               })
               .fail(function(xhr, error) {
                   // Callback function to handle failed response
@@ -153,9 +352,31 @@
               });
       }
     });
-  });
-  </script>
+//     initializeDatatable = (tableId, data) => {
+//       console.log("Initializing DataTable with Data:", data);
+//   new DataTable(tableId, {
+//     columns: [
+//       { data: "id" },
+//       { data: "username" },
+//       { data: "email" },
+//       { data: "password" },
+//     ],
+//     data: data,
+//   });
+// };
+//     if ($.fn.dataTable.isDataTable("#tutorials-table")) {
+//     $("#tutorials-table").DataTable().destroy();
+//   }
+  // initializeDatatable("#tutorials-table", users);
+
+  console.log("cao");
+
   
+  });
+  
+  </script>
+  <script src="services/newajax.js"></script>
+  <script>callFun();</script> 
   
 </body>
 </html>
