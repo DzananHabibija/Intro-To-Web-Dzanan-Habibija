@@ -179,7 +179,7 @@
   function openEditNewModal(user_id) {
         // Populate the modal with user data
         // For now, let's just show the modal
-        RestClient.get("users/" + user_id, function (data) { // previous: RestClient.get("/get_user.php?id=" + user_id, function (data) { 
+        RestClient.get("/users/" + user_id, function (data) { // previous: RestClient.get("/get_user.php?id=" + user_id, function (data) { 
           console.log("The data inside modal came and it is: ", data);
         $('#exampleModal').modal('show');
         $("#exampleModal input[name='id']").val(data.id);
@@ -197,8 +197,8 @@
             };
 
             // Make AJAX request to update user data
-            RestClient.put("/update_user.php", updatedData, function(response) {
-                console.log("User data updated successfully");
+            RestClient.post("/users/edit/"+user_id+"?_method=PUT", updatedData, function(response) {
+                console.log(response);
                 // Optionally, you can reload the DataTable or perform any other actions here
             }, function(error) {
                 console.error("Error updating user data:", error);
@@ -276,7 +276,7 @@ function reloadDataTable(data) {
                 data: null,
                 render: function(data, type, row) {
                     return '<div class="btn-group" role="group" aria-label="Actions">' +
-                        '<button type="button" class="btn btn-warning" onclick="openEditModal(' + row.id + ')">Edit</button>' +
+                        '<button type="button" class="btn btn-warning" onclick="openEditNewModal(' + row.id + ')">Edit</button>' +
                         '<button type="button" class="btn btn-danger" onclick="deleteUser(' + row.id + ')">Delete</button>' +
                         '</div>';
                 }

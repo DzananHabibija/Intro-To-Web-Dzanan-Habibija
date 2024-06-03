@@ -2,6 +2,9 @@ function callFun(){
   $.ajax({
     url: 'http://localhost/Web-Project/backend/users/all', // staviti /users
     method: 'GET',
+    headers: {
+      "Authentication": Utils.get_from_localstorage("user").token
+    },
     success: function(data) {
       console.log("The new data is:", data);
   

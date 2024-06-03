@@ -32,10 +32,15 @@ Flight::set('auth_service', new AuthService());
         //$payload = $_REQUEST;
         $payload = Flight::request()->data->getData();    
         
+        
          $user = Flight::get('auth_service')->get_user_by_email($payload['email']);
-
+        //  print_r( $payload['password'] ."\n");
+        //  print_r( $user['password']);
+        //  die;
+       
          if(!$user || !password_verify($payload['password'], $user['password']))
-            Flight::halt(500, "Invalid username or password");
+
+            Flight::halt(500, "Invalid email or password");
         
         unset($user['password']);
 

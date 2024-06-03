@@ -33,6 +33,8 @@
                 <div class="Login-button">
                     <a href="#userLogin" style="text-decoration: none; display:block;margin-right: 15px; color: black">login</a>
                 </div>
+                <div class="Logout-button">
+                    <button id="logoutBtn" style="border: none; background-color: none; display:block;margin-right: 15px; color: black">logout</button>                </div>
                 <div class="profile-button">
                     <a href="#users-profile" style="margin-right: 15px; color: black"><img src="user.png" width="25" alt=""></a>
                 </div> 
@@ -40,6 +42,7 @@
                     <div class="Shopping-cart">
                         <img src="grocery-store.png" alt="Shopping Cart" style="width:25px;">
                         <a href="#userLogin" style="text-decoration: none; display:none; margin-right: 15px; color: black">login</a>
+                        
                     </div>
                 </a> 
                 
@@ -83,7 +86,42 @@
     <script src="assets/js/scripts.js"></script>
     <script src="services/ajax.js"></script>
 
-    
+    <script src="utils/constants.js"></script>
+<script src="utils/utils.js"></script>
+<script src="utils/rest_client.js"></script>
+<script src="utils/form_validation.js"></script>
 
+<script>
+    // const refs = [
+    //     'http://localhost/Web-Project/#aboutUs',
+    //     'http://localhost/Web-Project/#contactUs',
+    //     'http://localhost/Web-Project/#shoppingCart',
+    //     'http://localhost/Web-Project/#userProfile',
+    //     'http://localhost/Web-Project/#product', 
+    //     'http://localhost/Web-Project/#home',
+
+    // ]
+
+    // navigation.addEventListener('navigate', () => {
+    //     if (refs.includes(window.location.href) && !(Utils.get_from_localstorage("user"))) {
+    //         console.log(window.location.href);    
+    //         window.location = "http://localhost/Web-Project/#userLogin";
+    //     } 
+    //     });
+
+    function locationHashChanged( e ) {
+        //console.log( e.oldURL, e.newURL );
+        if ( !(Utils.get_from_localstorage("user")) ) {
+            window.location = "http://localhost/Web-Project/#userLogin";
+        }
+    }
+
+    window.onhashchange = locationHashChanged;
+
+    $("#logoutBtn").click(() => {
+        localStorage.clear();
+        window.location = "http://localhost/Web-Project/#userLogin";
+    })
+</script>
 </body>
 </html>

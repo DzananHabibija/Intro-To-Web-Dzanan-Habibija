@@ -25,17 +25,17 @@
             </div>
             <div class="card-body p-4 p-sm-5">
               <h5 class="card-title text-center mb-5 fw-light fs-5">Login</h5>
-              <form id="project-form">
+              <form id="login-form">
   
                 <div class="mb-3">
-                  <label for="floatingInputEmail">Email address</label>
-                  <input type="email" name="email" class="form-control" id="floatingInputEmail" placeholder="name@example.com">
+                  <label for="email">Email address</label>
+                  <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com">
                   
                 </div>
   
                 <div class="mb-3">
-                  <label for="floatingPassword">Password</label>
-                  <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+                  <label for="password">Password</label>
+                  <input type="password" name="password" class="form-control" id="password" placeholder="Password">
                 </div>
   
   
@@ -70,12 +70,34 @@
   
 
   <!-- Bootstrap JS and Popper.js (optional, for some Bootstrap components) -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+   if(Utils.get_from_localstorage("user")) {
+         window.location = "http://localhost/Web-Project/#home";
+      }
+
+  FormValidation.validate("#login-form",{},function(data){
+    RestClient.post(
+          '/auth/login',
+          data,
+          function (response) {
+            console.log("Response form login is: " ,response);
+            Utils.set_to_localstorage("user", response);
+            window.location = "http://localhost/Web-Project/#home";
+          },
+          function (error) {
+            console.log("You have got an error while logging in!:", error);
+          }
+        )
+  });
+</script>
+
 <script>
   $(document).ready(function() {
-    $("#project-form").validate({
+    $("#login-form").validate({
       rules: {
         password: {
           required: true,
@@ -111,6 +133,7 @@ $.each($(form).serializeArray(), function() {
 return jsonResult;
 }
 </script>
+
 
 </body>
 </html>
