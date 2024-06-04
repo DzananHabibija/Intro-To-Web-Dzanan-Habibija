@@ -10,7 +10,7 @@ var UserService = [
     ],
 
     function open_edit_user_modal (user_id) {
-        RestClient.get("users/" + user_id, function (data) {
+        RestClient.get("/users/" + user_id, function (data) {
           $("#add-patient-modal").modal("toggle");
           $("#add-patient-form input[name='id']").val(data.id);
           $("#add-patient-form input[name='first_name']").val(data.first_name);

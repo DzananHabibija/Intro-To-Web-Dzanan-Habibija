@@ -2,6 +2,9 @@
 
 require_once __DIR__ . '/../services/UserService.class.php';
 
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
 Flight::set('user_service', new UserService());
 
 
@@ -11,6 +14,9 @@ Flight::set('user_service', new UserService());
      *      path="/users/all",
      *      tags={"users"},
      *      summary="Get all users",
+     *      security={
+     *          {"ApiKey": {}}   
+     *      },
      *      @OA\Response(
      *           response=200,
      *           description="Array of all users in database"
@@ -54,6 +60,9 @@ Flight:: json([
      *      path="/users/add",
      *      tags={"users"},
      *      summary="Add user data to the database",
+     *      security={
+     *          {"ApiKey": {}}   
+     *      },
      *      @OA\Response(
      *           response=200,
      *           description="User data, or exception if user is not added properly"
@@ -89,14 +98,14 @@ $payload = Flight::request()->data->getData();
 //      die(json_encode(['error' => 'Username field is missing']));
 //  }
 
-//  $user_service = new UserService();
+//   $user_service = new UserService();
 
-//  if($payload['id'] != null && $payload['id'] != '') {
-//      $user = $user_service->edit_user($payload);
-//  } else {
+//   if($payload['id'] != null && $payload['id'] != '') {
+//       $user = $user_service->edit_user($payload);
+//   } else {
 //      unset($payload['id']);
-//      $user = $user_service->add_user($payload);
-//  }
+//       $user = $user_service->add_user($payload);
+//   }
 
 
 Flight::json($user);
@@ -108,6 +117,9 @@ Flight::json($user);
      *      path="/users/delete/{user_id}",
      *      tags={"users"},
      *      summary="Delete user by id",
+     *      security={
+     *          {"ApiKey": {}}   
+     *      },
      *      @OA\Response(
      *           response=200,
      *           description="Deleted user data or 500 status code exception otherwise"
@@ -128,11 +140,28 @@ Flight::json(["message" => "You have successfully delelted the user!"]);
 });
 
 
+Flight::route('PUT /users/edit/@user_id', function($user_id) { 
+
+    $payload = Flight::request()->data->getData();
+
+
+      if($user_id != null && $user_id != '') {
+      $user = Flight::get("user_service")->edit_user((int)$user_id, $payload);
+  } else {
+     unset($payload['id']);
+      $user = Flight::get("user_service")->add_user($payload);
+  }
+});
+
+
 /**
      * @OA\Get(
      *      path="/users/{user_id}",
      *      tags={"users"},
      *      summary="Get user by id",
+     *      security={
+     *          {"ApiKey": {}}   
+     *      },
      *      @OA\Response(
      *           response=200,
      *           description="Get user data or 500 status code exception otherwise"
@@ -141,8 +170,59 @@ Flight::json(["message" => "You have successfully delelted the user!"]);
      * )
      */
 Flight::route('GET /users/@user_id', function($user_id) { 
-
+    
     $user = Flight::get('user_service')-> get_user_by_id($user_id);
 
     Flight::json($user);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// /**
+//      * @OA\Get(
+//      *      path="/users/info",
+//      *      tags={"users"},
+//      *      summary="Get logged in user information",
+//      *      security={
+//      *          {"ApiKey": {}}   
+//      *      },
+//      *      @OA\Response(
+//      *           response=200,
+//      *           description="Get user data or 500 status code exception otherwise"
+//      *      )
+//      * )
+//      */
+    //  Flight::route('GET /users/info', function() {
+    //     Flight::json(Flight::get('user_service')->get_user_by_id(Flight::get('user')->id));
+    // });
+
+    // Flight::route('GET /info', function() {     
+    //     Flight::json(Flight::get("user"),200);
+    // });

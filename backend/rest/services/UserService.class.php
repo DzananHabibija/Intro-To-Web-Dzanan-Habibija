@@ -38,10 +38,7 @@ class UserService {
         return $this->user_dao->get_users();
     }
 
-    public function edit_user($user) {
-        $id = $user['id'];
-        unset($user['id']);
-        
+    public function edit_user($id, $user) {
         $this->user_dao->edit_user($id, $user);
     }
 }

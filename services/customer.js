@@ -7,6 +7,9 @@ $(document).ready(function(){
         url: 'http://localhost/Web-Project/backend/get_users.php', // URL to your API
         type: 'GET', // HTTP method (GET, POST, PUT, DELETE, etc.)
         dataType: 'html', // Expected data type
+        headers: {
+            "Authentication": Utils.get_from_localstorage("user").token
+          },
         success: function(data) {
             console.log("Get users:",data)
             // Define the function outside the AJAX success callback
